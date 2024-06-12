@@ -1,0 +1,16 @@
+{
+    "task_sequence": [
+        {
+            "task_name": "检测室内温度",
+            "api_call": "DetectTemp()",
+            "parameters": {},
+            "order": 1
+        },
+        {
+            "task_name": "调节室温",
+            "api_call": "AirConditionerCtrl()",
+            "parameters": {"temperature": "25"},
+            "order": 2
+        }
+    ]
+}

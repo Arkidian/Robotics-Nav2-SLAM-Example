@@ -35,6 +35,22 @@ ros2 launch unity_slam_example unity_viz_example.py
 
 
 
+#### 若出现以下错误
+
+```
+[controller_server-1] [INFO] [1718182603.753304920] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+...
+[controller_server-1] [INFO] [1718182605.253381757] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "base_link" passed to canTransform argument source_frame - frame does not exist
+```
+
+### 尝试在novnc2 中运行以下命令
+
+```
+ros2 launch nav2_bringup tb3_simulation_launch.py slam:=True
+```
+
+
+
 #### 接下来通过 CMD 控制台向 Docker 输入坐标命令，控制小车前往指定位置（管理员模式）
 
 ```

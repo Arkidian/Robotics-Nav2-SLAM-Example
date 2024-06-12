@@ -1,0 +1,10 @@
+{
+    "task_sequence": [
+        {
+            "task_name": "打开客厅灯光",
+            "api_call": "LightCtrl()",
+            "parameters": {"place": "LivingRoom"},
+            "order": 1
+        }
+    ]
+}

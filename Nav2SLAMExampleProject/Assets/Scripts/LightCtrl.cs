@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightCtrl : MonoBehaviour
+public class LightCtrl : APIControllerBase
 {
     // 二维 List 用于存储所有灯泡对象名称
     private List<List<string>> objectNames = new List<List<string>>();
@@ -10,13 +10,21 @@ public class LightCtrl : MonoBehaviour
     public float interactionDistance = 5f; // 交互距离
     public KeyCode interactKey = KeyCode.F; // 交互键
 
-    void Start()
+    private void Awake()
     {
+        ServiceBotCtrl.Instance.RegisterAPIController("LightCtrl()", this);
+        Debug.Log("LightCtrl API reported");
+
         // 初始化 DoorGroup 下的直接子对象
         InitializeLightsNames(transform);
 
         // 打印二维 List 内容（可选）
         // PrintObjectNames();
+    }
+
+    void Start()
+    {
+
     }
 
     void Update()
@@ -115,6 +123,27 @@ public class LightCtrl : MonoBehaviour
         // 修改材质
         // lightSquareRenderer.material = yourOffMaterial;
         spotLight.enabled = false;
+    }
+
+    // 在这里可以实现灯泡API的控制逻辑
+    public override void ExecuteAPI(Dictionary<string, string> parameters)
+    {
+        string place = parameters["place"];
+        Debug.Log("Toggling light in " + place);
+        List<string> lightBulbNames = new List<string>();
+        foreach (var row in objectNames)
+        {
+            if (row.Count > 0 && row[0].Contains(place))
+            {
+                // 返回去掉第一个元素后的子列表
+                lightBulbNames = row.GetRange(1, row.Count - 1);
+            }
+        }
+        foreach (var lightBulbName in lightBulbNames)
+        {
+            Debug.Log("Toggling light " + lightBulbName);
+            ToggleLight(GameObject.Find(lightBulbName));
+        }
     }
 
     // 辅助方法，用于打印二维 List 内容（可选）

@@ -31,6 +31,7 @@ namespace RosSharp.Control
         private float rosLinear = 0f;
         private float rosAngular = 0f;
 
+        // 以下为 Ros2 官方的代码
         void Start()
         {
             wA1 = wheel1.GetComponent<ArticulationBody>();
